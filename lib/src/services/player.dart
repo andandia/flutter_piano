@@ -1,63 +1,60 @@
 import 'package:flutter/services.dart';
 import 'package:injectable/injectable.dart';
-import 'package:dart_melty_soundfont/synthesizer.dart';
-import 'package:dart_melty_soundfont/synthesizer_settings.dart';
-import 'package:dart_melty_soundfont/audio_renderer_ex.dart';
-import 'package:dart_melty_soundfont/array_int16.dart';
-
-import 'audio/pcm_audio_player.dart';
+import 'package:flutter_midi/flutter_midi.dart';
 
 @lazySingleton
 class PlayerService {
-  Synthesizer? _synth;
-  late final PcmAudioPlayer _audioPlayer;
+  final FlutterMidi _flutterMidi = FlutterMidi();
   bool _isInitialized = false;
+
+  // We keep track of played notes manually because flutter_midi doesn't
+  // expose CC (Sustain) natively, so we might need to simulate sustain if needed.
+  // Actually, since the user wants low latency and the plugin handles basic noteOn/Off,
+  // we'll just pass noteOn and noteOff. If sustain is true, we might just not send noteOff until stopSustain.
+  final Set<int> _sustainedNotes = {};
+  bool _sustainEnabled = false;
 
   PlayerService() {
     _init();
   }
 
   Future<void> _init() async {
-    _audioPlayer = PcmAudioPlayer();
-    await _audioPlayer.setup(sampleRate: 44100, channelCount: 1);
-    _audioPlayer.setFeedCallback(_onFeed);
+    // Unmute device (as per original app behavior)
+    _flutterMidi.unmute();
 
     ByteData bytes = await rootBundle.load('assets/sounds/Piano.sf2');
-    _synth = Synthesizer.loadByteData(bytes, SynthesizerSettings());
+    await _flutterMidi.prepare(sf2: bytes, name: 'Piano.sf2');
 
     _isInitialized = true;
   }
 
-  void _onFeed(int framesToRender) async {
-    if (_synth == null) return;
-    
-    int frames = framesToRender > 0 ? framesToRender : 2048;
-    ArrayInt16 buffer = ArrayInt16.zeros(numShorts: frames);
-    _synth!.renderMonoInt16(buffer);
-    await _audioPlayer.feed(buffer);
-  }
-
   Future<void> play(int midi, {bool sustain = false}) async {
-    if (!_isInitialized || _synth == null) return;
+    if (!_isInitialized) return;
     
-    // Apply sustain CC if requested (Control change 64, data2 > 63 = on)
-    _synth!.processMidiMessage(channel: 0, command: 0xB0, data1: 64, data2: sustain ? 127 : 0);
-    _synth!.noteOn(channel: 0, key: midi, velocity: 100);
-
-    // Fire and forget
-    _audioPlayer.play();
+    _sustainEnabled = sustain;
+    _flutterMidi.playMidiNote(midi: midi);
   }
 
   Future<void> stop(int midi, {bool sustain = false}) async {
-    if (!_isInitialized || _synth == null) return;
+    if (!_isInitialized) return;
+
+    _sustainEnabled = sustain;
     
-    _synth!.processMidiMessage(channel: 0, command: 0xB0, data1: 64, data2: sustain ? 127 : 0);
-    _synth!.noteOff(channel: 0, key: midi);
+    if (_sustainEnabled) {
+      _sustainedNotes.add(midi);
+    } else {
+      _flutterMidi.stopMidiNote(midi: midi);
+    }
   }
 
   Future<void> stopSustain() async {
-    if (!_isInitialized || _synth == null) return;
-    _synth!.processMidiMessage(channel: 0, command: 0xB0, data1: 64, data2: 0);
-    _synth!.noteOffAll();
+    if (!_isInitialized) return;
+
+    _sustainEnabled = false;
+
+    for (int note in _sustainedNotes) {
+      _flutterMidi.stopMidiNote(midi: note);
+    }
+    _sustainedNotes.clear();
   }
 }
