@@ -39,6 +39,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get keyWidth => '按键宽度';
 
   @override
+  String get blackKeyBottomMargin => 'Black Key Bottom Margin';
+
+  @override
   String get invertKeys => '反转按键';
 
   @override

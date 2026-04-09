@@ -18,6 +18,7 @@ class SettingsService {
   final themeMode = ValueNotifier<ThemeMode>(ThemeMode.light);
   final invertKeys = ValueNotifier<bool>(false);
   final keyWidth = ValueNotifier<double>(80);
+  final blackKeyBottomMargin = ValueNotifier<double>(100);
   final keyLabels = ValueNotifier<PitchLabels>(PitchLabels.both);
   final colorRole = ValueNotifier<ColorRole>(ColorRole.monoChrome);
   final haptics = ValueNotifier<bool>(true);
@@ -37,6 +38,7 @@ class SettingsService {
     }
     invertKeys.value = _prefs.getBool('invertKeys') ?? false;
     keyWidth.value = _prefs.getDouble('keyWidth') ?? 80;
+    blackKeyBottomMargin.value = _prefs.getDouble('blackKeyBottomMargin') ?? 100.0;
     final labelsName = _prefs.getString('keyLabels');
     if (labelsName != null) {
       keyLabels.value = PitchLabels.values.firstWhere(
@@ -68,6 +70,7 @@ class SettingsService {
     themeMode.addListener(() => _prefs.setString('themeMode', themeMode.value.name));
     invertKeys.addListener(() => _prefs.setBool('invertKeys', invertKeys.value));
     keyWidth.addListener(() => _prefs.setDouble('keyWidth', keyWidth.value));
+    blackKeyBottomMargin.addListener(() => _prefs.setDouble('blackKeyBottomMargin', blackKeyBottomMargin.value));
     keyLabels.addListener(() => _prefs.setString('keyLabels', keyLabels.value.name));
     colorRole.addListener(() => _prefs.setString('colorRole', colorRole.value.name));
     haptics.addListener(() => _prefs.setBool('haptics', haptics.value));

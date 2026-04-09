@@ -39,6 +39,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get keyWidth => 'Tastenbreite';
 
   @override
+  String get blackKeyBottomMargin => 'Black Key Bottom Margin';
+
+  @override
   String get invertKeys => 'Tasten invertieren';
 
   @override

@@ -18,6 +18,7 @@ void main() {
         'themeMode': 'dark',
         'invertKeys': true,
         'keyWidth': 100.0,
+        'blackKeyBottomMargin': 150.0,
         'keyLabels': 'none',
         'colorRole': 'primary',
         'haptics': false,
@@ -35,6 +36,7 @@ void main() {
       expect(service.themeMode.value, ThemeMode.dark);
       expect(service.invertKeys.value, true);
       expect(service.keyWidth.value, 100.0);
+      expect(service.blackKeyBottomMargin.value, 150.0);
       expect(service.keyLabels.value, PitchLabels.none);
       expect(service.colorRole.value, ColorRole.primary);
       expect(service.haptics.value, false);
@@ -61,6 +63,9 @@ void main() {
 
       service.keyWidth.value = 120.0;
       expect(prefs.getDouble('keyWidth'), 120.0);
+
+      service.blackKeyBottomMargin.value = 180.0;
+      expect(prefs.getDouble('blackKeyBottomMargin'), 180.0);
 
       service.keyLabels.value = PitchLabels.both;
       expect(prefs.getString('keyLabels'), 'both');
@@ -89,6 +94,7 @@ void main() {
       expect(service.themeMode.value, ThemeMode.light);
       expect(service.invertKeys.value, false);
       expect(service.keyWidth.value, 80.0);
+      expect(service.blackKeyBottomMargin.value, 100.0);
       expect(service.keyLabels.value, PitchLabels.both);
       expect(service.colorRole.value, ColorRole.monoChrome);
       expect(service.haptics.value, true);

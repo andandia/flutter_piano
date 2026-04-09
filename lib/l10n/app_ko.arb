@@ -19,6 +19,8 @@
     "settings": "설정",
     "@settings": {},
     "keyWidth": "키 너비",
+    "blackKeyBottomMargin": "Black Key Bottom Margin",
+    "@blackKeyBottomMargin": {},
     "@keyWidth": {},
     "invertKeys": "키 반전",
     "@invertKeys": {},

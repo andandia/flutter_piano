@@ -170,6 +170,12 @@ abstract class AppLocalizations {
   /// **'Key Width'**
   String get keyWidth;
 
+  /// No description provided for @blackKeyBottomMargin.
+  ///
+  /// In en, this message translates to:
+  /// **'Black Key Bottom Margin'**
+  String get blackKeyBottomMargin;
+
   /// No description provided for @invertKeys.
   ///
   /// In en, this message translates to:

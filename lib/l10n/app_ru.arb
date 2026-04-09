@@ -19,6 +19,8 @@
     "settings": "Настройки",
     "@settings": {},
     "keyWidth": "Ширина клавиши",
+    "blackKeyBottomMargin": "Black Key Bottom Margin",
+    "@blackKeyBottomMargin": {},
     "@keyWidth": {},
     "invertKeys": "Инвертировать клавиши",
     "@invertKeys": {},

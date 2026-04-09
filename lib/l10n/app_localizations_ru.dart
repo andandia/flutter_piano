@@ -39,6 +39,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get keyWidth => 'Ширина клавиши';
 
   @override
+  String get blackKeyBottomMargin => 'Black Key Bottom Margin';
+
+  @override
   String get invertKeys => 'Инвертировать клавиши';
 
   @override
