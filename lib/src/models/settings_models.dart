@@ -18,6 +18,7 @@ enum PitchLabels {
   flats,
   both,
   midi,
+  japanese,
 }
 
 extension ColorSchemeUtils on ColorScheme {
@@ -76,35 +77,66 @@ extension MidiPitchName on int {
     if (type != PitchLabels.none) {
       final octave = (this / 12).floor() - 1;
       final pitchClass = this % 12;
-      final flats = type == PitchLabels.flats || type == PitchLabels.both;
-      final sharps = type == PitchLabels.sharps || type == PitchLabels.both;
-      final both = type == PitchLabels.both;
-      switch (pitchClass) {
-        case 0:
-          return 'C$octave';
-        case 1:
-          return both ? 'C♯/D♭$octave' : (sharps ? 'C♯$octave' : 'D♭$octave');
-        case 2:
-          return 'D$octave';
-        case 3:
-          return both ? 'D♯/E♭$octave' : (flats ? 'E♭$octave' : 'D♯$octave');
-        case 4:
-          return 'E$octave';
-        case 5:
-          return 'F$octave';
-        case 6:
-          return both ? 'F♯/G♭$octave' : (sharps ? 'F♯$octave' : 'G♭$octave');
-        case 7:
-          return 'G$octave';
-        case 8:
-          return both ? 'G♯/A♭$octave' : (flats ? 'A♭$octave' : 'G♯$octave');
-        case 9:
-          return 'A$octave';
-        case 10:
-          return both ? 'A♯/B♭$octave' : (flats ? 'B♭$octave' : 'A♯$octave');
-        case 11:
-          return 'B$octave';
-        default:
+
+      if (type == PitchLabels.japanese) {
+        switch (pitchClass) {
+          case 0:
+            return 'ド$octave';
+          case 1:
+            return 'ド♯/レ♭$octave';
+          case 2:
+            return 'レ$octave';
+          case 3:
+            return 'レ♯/ミ♭$octave';
+          case 4:
+            return 'ミ$octave';
+          case 5:
+            return 'ファ$octave';
+          case 6:
+            return 'ファ♯/ソ♭$octave';
+          case 7:
+            return 'ソ$octave';
+          case 8:
+            return 'ソ♯/ラ♭$octave';
+          case 9:
+            return 'ラ$octave';
+          case 10:
+            return 'ラ♯/シ♭$octave';
+          case 11:
+            return 'シ$octave';
+          default:
+        }
+      } else {
+        final flats = type == PitchLabels.flats || type == PitchLabels.both;
+        final sharps = type == PitchLabels.sharps || type == PitchLabels.both;
+        final both = type == PitchLabels.both;
+        switch (pitchClass) {
+          case 0:
+            return 'C$octave';
+          case 1:
+            return both ? 'C♯/D♭$octave' : (sharps ? 'C♯$octave' : 'D♭$octave');
+          case 2:
+            return 'D$octave';
+          case 3:
+            return both ? 'D♯/E♭$octave' : (flats ? 'E♭$octave' : 'D♯$octave');
+          case 4:
+            return 'E$octave';
+          case 5:
+            return 'F$octave';
+          case 6:
+            return both ? 'F♯/G♭$octave' : (sharps ? 'F♯$octave' : 'G♭$octave');
+          case 7:
+            return 'G$octave';
+          case 8:
+            return both ? 'G♯/A♭$octave' : (flats ? 'A♭$octave' : 'G♯$octave');
+          case 9:
+            return 'A$octave';
+          case 10:
+            return both ? 'A♯/B♭$octave' : (flats ? 'B♭$octave' : 'A♯$octave');
+          case 11:
+            return 'B$octave';
+          default:
+        }
       }
     }
 
