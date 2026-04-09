@@ -209,14 +209,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.7"
-  dart_melty_soundfont:
-    dependency: "direct main"
-    description:
-      name: dart_melty_soundfont
-      sha256: ed961db658b588da49ae1d9e21ebb3b725677f2d78721a80c5e47cddde72a5d0
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.0"
   dart_style:
     dependency: transitive
     description:
@@ -315,14 +307,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_pcm_sound:
+  flutter_midi:
     dependency: "direct main"
     description:
-      name: flutter_pcm_sound
-      sha256: "15c6894da8195122001375084d51449bd77849579c93fca2800c00b615699dc0"
+      name: flutter_midi
+      sha256: "000e513736a316439b3cf5cf67066a3093ea0dc36c89b69734383554d3b2f757"
       url: "https://pub.dev"
     source: hosted
-    version: "3.3.3"
+    version: "1.1.0"
   flutter_shaders:
     dependency: transitive
     description:
@@ -725,6 +717,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.1"
+  path_provider_macos:
+    dependency: transitive
+    description:
+      name: path_provider_macos
+      sha256: cd57cb98a30ce9d12fdd1896d9d3b0517ce689f942de6ccd2708cd39b3d18a7c
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.7"
   path_provider_platform_interface:
     dependency: transitive
     description:
@@ -1002,6 +1002,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "7.3.0"
+  tonic:
+    dependency: transitive
+    description:
+      name: tonic
+      sha256: "4c5f3cc7d41cb256822aa5875cd89ccd94a2854912db3dddf4425a46d3d3dd15"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.5"
   two_dimensional_scrollables:
     dependency: transitive
     description:
