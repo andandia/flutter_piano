@@ -27,6 +27,8 @@ class SettingsScreen extends HookWidget {
         settings.themeColor, () => settings.themeColor.value);
     final keyWidth =
         useListenableSelector(settings.keyWidth, () => settings.keyWidth.value);
+    final blackKeyBottomMargin = useListenableSelector(
+        settings.blackKeyBottomMargin, () => settings.blackKeyBottomMargin.value);
     final invertKeys = useListenableSelector(
         settings.invertKeys, () => settings.invertKeys.value);
     final keyLabel = useListenableSelector(
@@ -100,6 +102,15 @@ class SettingsScreen extends HookWidget {
                 min: 50,
                 max: 200,
                 onChanged: (value) => settings.keyWidth.value = value,
+              ),
+              const SizedBox(height: 16),
+              Text(context.locale.blackKeyBottomMargin, style: shadTheme.textTheme.muted),
+              const SizedBox(height: 8),
+              ShadSlider(
+                initialValue: blackKeyBottomMargin,
+                min: 50,
+                max: 200,
+                onChanged: (value) => settings.blackKeyBottomMargin.value = value,
               ),
               const SizedBox(height: 8),
               _SettingRow(

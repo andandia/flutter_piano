@@ -19,6 +19,8 @@
     "settings": "設定",
     "@settings": {},
     "keyWidth": "キーの幅",
+    "blackKeyBottomMargin": "黒鍵の下部マージン",
+    "@blackKeyBottomMargin": {},
     "@keyWidth": {},
     "invertKeys": "キーを反転",
     "@invertKeys": {},

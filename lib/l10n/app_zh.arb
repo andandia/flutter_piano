@@ -19,6 +19,8 @@
     "settings": "设置",
     "@settings": {},
     "keyWidth": "按键宽度",
+    "blackKeyBottomMargin": "Black Key Bottom Margin",
+    "@blackKeyBottomMargin": {},
     "@keyWidth": {},
     "invertKeys": "反转按键",
     "@invertKeys": {},

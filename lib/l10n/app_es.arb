@@ -19,6 +19,8 @@
     "settings": "Ajustes",
     "@settings": {},
     "keyWidth": "Ancho de las teclas",
+    "blackKeyBottomMargin": "Black Key Bottom Margin",
+    "@blackKeyBottomMargin": {},
     "@keyWidth": {},
     "invertKeys": "Invertir teclas",
     "@invertKeys": {},

@@ -39,6 +39,9 @@ class AppLocalizationsKo extends AppLocalizations {
   String get keyWidth => '키 너비';
 
   @override
+  String get blackKeyBottomMargin => 'Black Key Bottom Margin';
+
+  @override
   String get invertKeys => '키 반전';
 
   @override

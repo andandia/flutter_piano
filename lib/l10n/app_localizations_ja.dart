@@ -39,6 +39,9 @@ class AppLocalizationsJa extends AppLocalizations {
   String get keyWidth => 'キーの幅';
 
   @override
+  String get blackKeyBottomMargin => '黒鍵の下部マージン';
+
+  @override
   String get invertKeys => 'キーを反転';
 
   @override

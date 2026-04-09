@@ -39,6 +39,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get keyWidth => 'Ancho de las teclas';
 
   @override
+  String get blackKeyBottomMargin => 'Black Key Bottom Margin';
+
+  @override
   String get invertKeys => 'Invertir teclas';
 
   @override

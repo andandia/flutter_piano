@@ -21,6 +21,7 @@ class PianoSection extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final keyWidth = useListenableSelector(settings.keyWidth, () => settings.keyWidth.value);
+    final blackKeyBottomMargin = useListenableSelector(settings.blackKeyBottomMargin, () => settings.blackKeyBottomMargin.value);
     final int i = index * 12;
     return SafeArea(
       child: Stack(
@@ -38,7 +39,7 @@ class PianoSection extends HookWidget {
             top: 0,
             left: 0,
             right: 0,
-            bottom: 100,
+            bottom: blackKeyBottomMargin,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               mainAxisSize: MainAxisSize.min,
