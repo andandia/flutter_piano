@@ -1,10 +1,11 @@
+import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:injectable/injectable.dart';
-import 'package:flutter_midi/flutter_midi.dart';
+import 'package:flutter_midi_16kb/flutter_midi_16kb.dart';
+import 'package:path_provider/path_provider.dart';
 
 @lazySingleton
 class PlayerService {
-  final FlutterMidi _flutterMidi = FlutterMidi();
   bool _isInitialized = false;
 
   // We keep track of played notes manually because flutter_midi doesn't
@@ -19,11 +20,17 @@ class PlayerService {
   }
 
   Future<void> _init() async {
-    // Unmute device (as per original app behavior)
-    _flutterMidi.unmute();
+    await FlutterMidi16kb.initialize();
 
     ByteData bytes = await rootBundle.load('assets/sounds/Piano.sf2');
-    await _flutterMidi.prepare(sf2: bytes, name: 'Piano.sf2');
+    final buffer = bytes.buffer;
+
+    Directory tempDir = await getTemporaryDirectory();
+    String tempPath = tempDir.path;
+    File file = File('$tempPath/Piano.sf2');
+    await file.writeAsBytes(buffer.asUint8List(bytes.offsetInBytes, bytes.lengthInBytes));
+
+    await FlutterMidi16kb.loadSoundfont(file.path);
 
     _isInitialized = true;
   }
@@ -32,7 +39,7 @@ class PlayerService {
     if (!_isInitialized) return;
     
     _sustainEnabled = sustain;
-    _flutterMidi.playMidiNote(midi: midi);
+    FlutterMidi16kb.playNote(key: midi);
   }
 
   Future<void> stop(int midi, {bool sustain = false}) async {
@@ -43,7 +50,7 @@ class PlayerService {
     if (_sustainEnabled) {
       _sustainedNotes.add(midi);
     } else {
-      _flutterMidi.stopMidiNote(midi: midi);
+      FlutterMidi16kb.stopNote(key: midi);
     }
   }
 
@@ -53,7 +60,7 @@ class PlayerService {
     _sustainEnabled = false;
 
     for (int note in _sustainedNotes) {
-      _flutterMidi.stopMidiNote(midi: note);
+      FlutterMidi16kb.stopNote(key: note);
     }
     _sustainedNotes.clear();
   }
