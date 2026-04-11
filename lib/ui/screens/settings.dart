@@ -95,7 +95,13 @@ class SettingsScreen extends HookWidget {
 
               // Keyboard Section
               _SectionHeader(title: context.locale.keySettings),
-              Text(context.locale.keyWidth, style: shadTheme.textTheme.muted),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(context.locale.keyWidth, style: shadTheme.textTheme.muted),
+                  Text(keyWidth.toStringAsFixed(1), style: shadTheme.textTheme.muted),
+                ],
+              ),
               const SizedBox(height: 8),
               ShadSlider(
                 initialValue: keyWidth,
@@ -104,12 +110,18 @@ class SettingsScreen extends HookWidget {
                 onChanged: (value) => settings.keyWidth.value = value,
               ),
               const SizedBox(height: 16),
-              Text(context.locale.blackKeyBottomMargin, style: shadTheme.textTheme.muted),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(context.locale.blackKeyBottomMargin, style: shadTheme.textTheme.muted),
+                  Text(blackKeyBottomMargin.toStringAsFixed(1), style: shadTheme.textTheme.muted),
+                ],
+              ),
               const SizedBox(height: 8),
               ShadSlider(
                 initialValue: blackKeyBottomMargin,
                 min: 50,
-                max: 200,
+                max: 400,
                 onChanged: (value) => settings.blackKeyBottomMargin.value = value,
               ),
               const SizedBox(height: 8),
